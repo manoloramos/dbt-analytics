@@ -1,29 +1,27 @@
 version: 2
 
 sources:
-  name: google_sheets
-  schema: google_sheets
-  database: ALUMNO19_DEV_BRONZE_DB
 
-  quoting:
-    database: false
-    schema: false
-    identifier: false
+  - name: google_sheets # name of the source 
+    schema: google_sheets # this is the schema our raw data lives in
+    database: <ALUMNOX>_DEV_BRONZE_DB # this is the name of our database
 
-  freshness:
-    warn_after:
-      count: 1
-      period: year
-    error_after:
-      count: 2
-      period: year
-  
-  tables:
-    name: budget
-    loaded_at_field: _fivetran_synced
-    columns:
-      name: _row
-      name: product_id
-      name: quantity
-      name: month
-      name: _fivetran_synced
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 1, period: hour}
+      error_after: {count: 2, period: hour}
+
+    tables:
+
+      - name: budget
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: _row
+          - name: product_id
+          - name: quantity
+          - name: month
+          - name: _fivetran_synced
