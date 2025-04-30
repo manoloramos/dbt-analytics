@@ -4,7 +4,7 @@ sources:
 
   - name: google_sheets # name of the source 
     schema: google_sheets # this is the schema our raw data lives in
-    database: <ALUMNOX>_DEV_BRONZE_DB # this is the name of our database
+    database: ALUMNO19_DEV_BRONZE_DB # this is the name of our database
 
     quoting:
       database: false
@@ -12,12 +12,12 @@ sources:
       identifier: false
 
     freshness:
-      warn_after: {count: 1, period: hour}
-      error_after: {count: 2, period: hour}
+      warn_after: {count: 1, period: day}
+      error_after: {count: 720, period: day}
 
     tables:
 
-      - name: budget
+      - name: BUDGET
         loaded_at_field: _fivetran_synced
         columns:
           - name: _row
