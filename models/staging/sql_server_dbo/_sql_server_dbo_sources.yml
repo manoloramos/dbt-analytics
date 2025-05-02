@@ -1,8 +1,7 @@
 version: 2
 
 sources:
-
-  - name: sql_server_dbo # name of the source 
+  - name: sql_server_dbo # name of the source
     schema: sql_server_dbo # this is the schema our raw data lives in
     database: ALUMNO19_DEV_BRONZE_DB # this is the name of our database
 
@@ -12,11 +11,10 @@ sources:
       identifier: false
 
     freshness:
-      warn_after: {count: 1, period: day}
-      error_after: {count: 720, period: day}
+      warn_after: { count: 1, period: day }
+      error_after: { count: 720, period: day }
 
     tables:
-
       - name: ADDRESSES
         loaded_at_field: _fivetran_synced
         columns:
@@ -27,7 +25,7 @@ sources:
           - name: state
           - name: _fivetran_deleted
           - name: _fivetran_synced
-      
+
       - name: EVENTS
         loaded_at_field: _fivetran_synced
         columns:
@@ -41,53 +39,53 @@ sources:
           - name: order_id
           - name: _fivetran_deleted
           - name: _fivetran_synced
-      
+
       - name: ORDERS
         loaded_at_field: _fivetran_synced
         columns:
           - name: order_id
           - name: shipping_service
           - name: shipping_cost
-          - name: address_id 
+          - name: address_id
           - name: created_at
-          - name: promo_id 
+          - name: promo_id
           - name: estimated_delivery_at
           - name: order_cost
           - name: user_id
           - name: order_total
           - name: delivered_at
-          - name: tracking_id 
-          - name: status 
-          - name: _fivetran_deleted 
+          - name: tracking_id
+          - name: status
+          - name: _fivetran_deleted
           - name: _fivetran_synced
 
       - name: ORDERS_ITEMS
         loaded_at_field: _fivetran_synced
         columns:
-           - name: order_id varchar
-           - name: product_id
-           - name: quantity
-           - name: _fivetran_deleted
-           - name: _fivetran_synced
+          - name: order_id varchar
+          - name: product_id
+          - name: quantity
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
 
       - name: PRODUCTS
         loaded_at_field: _fivetran_synced
         columns:
-            - name: product_id
-            - name: price
-            - name: name
-            - name: inventory
-            - name: _fivetran_deleted
-            - name: _fivetran_synced
+          - name: product_id
+          - name: price
+          - name: name
+          - name: inventory
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
 
       - name: PROMOS
         loaded_at_field: _fivetran_synced
         columns:
-            - name: promo_id
-            - name: discount
-            - name: status
-            - name: _fivetran_deleted
-            - name: _fivetran_synced
+          - name: promo_id
+          - name: discount
+          - name: status
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
       - name: USERS
         loaded_at_field: _fivetran_synced
         columns:
