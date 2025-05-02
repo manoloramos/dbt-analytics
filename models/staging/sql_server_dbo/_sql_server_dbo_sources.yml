@@ -2,6 +2,8 @@ version: 2
 
 sources:
   - name: sql_server_dbo # name of the source
+    description: >
+      Raw data from Snowflake.
     schema: sql_server_dbo # this is the schema our raw data lives in
     database: ALUMNO19_DEV_BRONZE_DB # this is the name of our database
 
@@ -15,6 +17,36 @@ sources:
       error_after: { count: 720, period: day }
 
     tables:
+      - name: PROMOS
+        loaded_at_field: _fivetran_synced
+        description: >
+          Table containing Promotions data.
+        columns:
+          - name: promo_id
+            description: >
+              The main ID for each promo. Contains the promo name.
+            tests:
+              - not_null
+          - name: discount
+            description: >
+              The discount percentage applied by the promo.
+            tests:
+              - not_null
+              - positive_values
+          - name: status
+            description: >
+              Current status for the promo: active | inactive.
+            tests:
+              - not_null
+          - name: _fivetran_deleted
+            description: >
+              The date in which the data was deleted from the source DB.
+          - name: _fivetran_synced
+            description: >
+              The date in which this data was last synced.
+            tests:
+              - not_null
+
       - name: ADDRESSES
         loaded_at_field: _fivetran_synced
         columns:
@@ -78,14 +110,6 @@ sources:
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
-      - name: PROMOS
-        loaded_at_field: _fivetran_synced
-        columns:
-          - name: promo_id
-          - name: discount
-          - name: status
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
       - name: USERS
         loaded_at_field: _fivetran_synced
         columns:
