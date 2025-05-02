@@ -12,7 +12,7 @@ WITH src_budget AS (
 renamed_casted AS (
     SELECT
           _row
-        , product_id
+        , product_id 
         , quantity
         , month
         , _fivetran_synced AS date_load
@@ -20,3 +20,4 @@ renamed_casted AS (
     )
 
 SELECT * FROM renamed_casted
+

@@ -9,6 +9,7 @@ WITH src_PROMOS AS (
     FROM {{ source('sql_server_dbo', 'PROMOS') }}
     ),
 
+/* TODO: create a surrogate key for promo_id */
 PROMOS_output AS (
     SELECT
         promo_id
