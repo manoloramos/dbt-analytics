@@ -21,7 +21,7 @@ ORDERS_output AS (
         , estimated_delivery_at
         , order_cost
         , user_id
-        , order_total
+        , CAST(order_total AS FLOAT) AS order_total
         , delivered_at
         , tracking_id
         , status

@@ -94,7 +94,7 @@ sources:
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
-      - name: ORDERS_ITEMS
+      - name: ORDER_ITEMS
         loaded_at_field: _fivetran_synced
         columns:
           - name: order_id varchar
