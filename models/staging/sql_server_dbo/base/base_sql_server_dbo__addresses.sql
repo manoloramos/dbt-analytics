@@ -9,7 +9,6 @@ WITH src_ADDRESSES AS (
         FROM {{ source('sql_server_dbo', 'ADDRESSES') }}
     ),
 
-
 ADDRESSES_output AS (
     SELECT
         address_id
