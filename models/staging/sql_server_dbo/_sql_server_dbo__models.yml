@@ -6,6 +6,8 @@ models:
     config:
       contract:
         enforced: true
+      meta:
+        surrogate_key: true
     description: >
       Contains data describing currently available promotions.
     columns:

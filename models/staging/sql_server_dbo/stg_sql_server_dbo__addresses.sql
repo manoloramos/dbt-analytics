@@ -11,13 +11,13 @@ WITH src_ADDRESSES AS (
 
 ADDRESSES_output AS (
     SELECT
-        address_id
-        , zipcode
-        , country
-        , address
-        , state
-        , _fivetran_synced AS date_loaded
-        , _fivetran_deleted AS date_deleted
+        {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id -- Cast?
+        , zipcode::INT AS zipcode
+        , country::VARCHAR AS country
+        , address::VARCHAR AS address
+        , state::VARCHAR AS state
+        , _fivetran_synced AS date_loaded -- Cast?
+        , _fivetran_deleted AS date_deleted -- Cast?
     FROM src_ADDRESSES
     )
 
