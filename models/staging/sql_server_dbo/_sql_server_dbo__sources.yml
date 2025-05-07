@@ -21,7 +21,7 @@ sources:
       - name: PROMOS
         loaded_at_field: _fivetran_synced
         description: >
-          Table containing Promotions data.
+          Contains all related Promotions data.
         columns:
           - name: promo_id
             description: >
@@ -115,6 +115,8 @@ sources:
 
       - name: USERS
         loaded_at_field: _fivetran_synced
+        description: >
+          Contains all related User data.
         columns:
           - name: user_id
           - name: updated_at
