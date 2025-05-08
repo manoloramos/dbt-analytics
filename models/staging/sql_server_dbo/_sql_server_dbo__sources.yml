@@ -5,22 +5,23 @@ sources:
     description: >
       Raw data from Snowflake.
     schema: sql_server_dbo # this is the schema our raw data lives in
-    database: ALUMNO19_DEV_BRONZE_DB # this is the name of our database
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}BRONZE_DB" # this is the name of our database
 
     quoting:
       database: false
       schema: false
       identifier: false
 
+    # defines the period of time in which the data is considered stale
     freshness:
       warn_after: { count: 1, period: day }
-      error_after: { count: 720, period: day }
+      error_after: { count: 30, period: day }
 
     tables:
       - name: PROMOS
         loaded_at_field: _fivetran_synced
         description: >
-          Table containing Promotions data.
+          Contains all related Promotions data.
         columns:
           - name: promo_id
             description: >
@@ -51,6 +52,8 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: address_id
+            tests:
+              - not_null
           - name: zipcode
           - name: country
           - name: address
@@ -91,7 +94,7 @@ sources:
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
-      - name: ORDERS_ITEMS
+      - name: ORDER_ITEMS
         loaded_at_field: _fivetran_synced
         columns:
           - name: order_id varchar
@@ -112,6 +115,8 @@ sources:
 
       - name: USERS
         loaded_at_field: _fivetran_synced
+        description: >
+          Contains all related User data.
         columns:
           - name: user_id
           - name: updated_at
