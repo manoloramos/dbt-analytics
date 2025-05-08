@@ -6,7 +6,7 @@
 
 WITH src_products AS (
     SELECT * 
-    FROM {{ source('sql_server_dbo', 'products') }}
+    FROM {{ source('sql_server_dbo', 'PRODUCTS') }}
 
     UNION ALL
 
