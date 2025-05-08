@@ -30,8 +30,7 @@ users_output AS (
         , phone_number::VARCHAR AS phone_number
         , first_name::VARCHAR AS first_name
         , email::VARCHAR AS email
-        , _fivetran_deleted::BOOLEAN AS is_deleted
-        , CONVERT_TIMEZONE('UTC', _fivetran_synced)::TIMESTAMP AS date_loaded
+         , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
     FROM src_users
 )
 

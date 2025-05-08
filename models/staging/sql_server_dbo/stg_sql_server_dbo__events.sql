@@ -1,13 +1,7 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_EVENTS AS (
     SELECT * 
         FROM {{ source('sql_server_dbo', 'EVENTS') }}
-    ),
+),
 
 
 EVENTS_output AS (
@@ -20,9 +14,8 @@ EVENTS_output AS (
         , session_id
         , created_at
         , order_id
-        , _fivetran_synced AS date_loaded
-        , _fivetran_deleted AS date_deleted
+        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
     FROM src_EVENTS
-    )
+)
 
 SELECT * FROM EVENTS_output

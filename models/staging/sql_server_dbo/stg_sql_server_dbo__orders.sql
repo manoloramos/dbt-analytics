@@ -1,13 +1,7 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_ORDERS AS (
     SELECT * 
         FROM {{ source('sql_server_dbo', 'ORDERS') }}
-    ),
+),
 
 
 ORDERS_output AS (
@@ -25,9 +19,8 @@ ORDERS_output AS (
         , delivered_at
         , tracking_id
         , status
-        , _fivetran_synced AS date_loaded
-        , _fivetran_deleted AS date_deleted
+        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
     FROM src_ORDERS
-    )
+)
 
 SELECT * FROM ORDERS_output

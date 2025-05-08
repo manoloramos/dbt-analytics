@@ -28,8 +28,7 @@ promos_output AS (
         , promo_id::VARCHAR AS promo_desc
         , discount::FLOAT AS discounted_quantity
         , status::VARCHAR AS status
-        , _fivetran_deleted::BOOLEAN AS is_deleted
-        , CONVERT_TIMEZONE({{ var('project_timezone')}}, _fivetran_synced)::TIMESTAMP AS date_loaded
+        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
     FROM src_promos
 )
 
