@@ -7,8 +7,8 @@ models:
       contract:
         enforced: true
       description: >
-        'Hola'
-      columns:
+        'Basic transformations for PROMOS table normalization.'
+      columns: # Update columns
         - name: promo_id
           data_type: varchar
         - name: promo_description 

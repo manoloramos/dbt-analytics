@@ -18,22 +18,27 @@ models:
             description: >
               The main ID for each promo. Contains the promo name.
             tests:
+              - unique
               - not_null
           - name: discount
+            data_type: number
             description: >
               The discount percentage applied by the promo.
             tests:
               - not_null
               - positive_values
           - name: status
+            data_type: text
             description: >
               Current status for the promo: active | inactive.
             tests:
               - not_null
           - name: _fivetran_deleted
+            data_type: boolean
             description: >
               The date in which the data was deleted from the source DB.
           - name: _fivetran_synced
+            data_type: date
             description: >
               The date in which this data was last synced.
             tests:

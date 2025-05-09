@@ -1,9 +1,9 @@
-WITH src_ADDRESSES AS (
+WITH src_addresses AS (
     SELECT * 
     FROM {{ source('sql_server_dbo', 'ADDRESSES') }}
 ),
 
-ADDRESSES_output AS (
+addresses_output AS (
     SELECT
         {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id
         , zipcode::INT AS zipcode
@@ -11,7 +11,7 @@ ADDRESSES_output AS (
         , address::VARCHAR AS address
         , state::VARCHAR AS state
         , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
-    FROM src_ADDRESSES
+    FROM src_addresses
 )
 
-SELECT * FROM ADDRESSES_output
+SELECT * FROM addresses_output
