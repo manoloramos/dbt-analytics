@@ -10,7 +10,7 @@ ADDRESSES_output AS (
         , country::VARCHAR AS country
         , address::VARCHAR AS address
         , state::VARCHAR AS state
-        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_ADDRESSES
 )
 

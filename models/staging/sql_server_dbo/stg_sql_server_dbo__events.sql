@@ -14,7 +14,7 @@ EVENTS_output AS (
         , session_id
         , created_at
         , order_id
-        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_EVENTS
 )
 

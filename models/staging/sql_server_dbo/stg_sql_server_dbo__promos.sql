@@ -28,7 +28,7 @@ promos_output AS (
         , promo_id::VARCHAR AS promo_desc
         , discount::FLOAT AS discounted_quantity
         , status::VARCHAR AS status
-        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_promos
 )
 

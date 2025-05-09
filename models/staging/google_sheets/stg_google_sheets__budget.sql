@@ -10,10 +10,8 @@ renamed_casted AS (
         , quantity
         , month
         , _fivetran_synced AS date_load
-        , {{ format_fivetran_fields(_fivetran_synced=_fivetran_synced) }}
-        -- checar
+        , {{ format_fivetran_fields('_fivetran_synced') }}
     FROM src_budget
 )
 
 SELECT * FROM renamed_casted
-

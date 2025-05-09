@@ -9,7 +9,7 @@ ORDER_ITEMS_output AS (
         order_id,
         product_id,
         quantity,
-        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
 
     FROM src_ORDER_ITEMS
 )

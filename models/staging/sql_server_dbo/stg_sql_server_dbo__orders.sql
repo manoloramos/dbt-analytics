@@ -19,7 +19,7 @@ ORDERS_output AS (
         , delivered_at
         , tracking_id
         , status
-        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_ORDERS
 )
 

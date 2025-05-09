@@ -30,7 +30,7 @@ users_output AS (
         , phone_number::VARCHAR AS phone_number
         , first_name::VARCHAR AS first_name
         , email::VARCHAR AS email
-         , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_users
 )
 

@@ -9,7 +9,7 @@ products_output AS (
         , price::FLOAT AS price
         , name::VARCHAR AS name
         , inventory::INT AS inventory
-        , {{ format_fivetran_fields('_fivetran_deleted', '_fivetran_synced') }}
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_products
 )
 
