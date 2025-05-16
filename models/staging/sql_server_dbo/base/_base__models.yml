@@ -1,13 +1,25 @@
 version: 2
 
 models:
+  - name: base_sql_server_dbo__promos_statuses
+    config: 
+      materialized: view
+      contract:
+        enforced: false
+      description: >
+        'Base for Promos Statuses table creation.'
+      columns: # Update columns
+        - name: status_id
+          data_type: varchar
+        - name: status_description
+          data_type: varchar
   - name: base_sql_server_dbo__promos
     config: 
       materialized: view
       contract:
-        enforced: true
+        enforced: false
       description: >
-        'Basic transformations for PROMOS table normalization.'
+        'Base for Promos Statuses table creation.'
       columns: # Update columns
         - name: promo_id
           data_type: varchar

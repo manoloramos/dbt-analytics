@@ -1,11 +1,11 @@
 WITH src_dates AS (
     SELECT * 
-        FROM {{  }}
+        FROM {{ ref('base_sql_server_dbo__promos') }}
 ),
 
 dates_output AS (
     SELECT
-        
+        *
     FROM src_dates
 )
 

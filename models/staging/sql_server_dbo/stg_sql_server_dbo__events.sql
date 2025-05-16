@@ -10,7 +10,7 @@ events_output AS (
         , event_type::VARCHAR AS event_type
         , user_id::VARCHAR AS user_id
         , session_id::VARCHAR AS session_id
-        , {{ format_dates('created_at', {{ var('project_timezone') }}) }} AS created_at
+        , {{ format_dates('created_at', var('project_timezone')) }} AS created_at
         , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
         , order_id::VARCHAR AS -- Remove
         , product_id::VARCHAR AS -- Remove

@@ -18,7 +18,7 @@ WITH src_promos AS (
 
 promos_output AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id -- Generate a surrogate key (hash) to better identify PROMOS
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id
         , promo_id::VARCHAR AS promo_desc
         , discount::FLOAT AS discounted_quantity
         , status::VARCHAR AS status

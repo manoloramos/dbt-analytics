@@ -2,8 +2,9 @@ version: 2
 
 # DATA CONTRACTS FOR MODELS
 models:
-  - name: PROMOS
+  - name: stg_sql_server_dbo__promos
     config:
+      # materialized: table
       contract:
         enforced: true
       meta:
@@ -20,6 +21,14 @@ models:
             tests:
               - unique
               - not_null
+          - name: promo_desc
+            data_type: text
+            constraints:
+              - type: not_null
+            description: >
+              Description text for each promo.
+            tests:
+              - not_null
           - name: discount
             data_type: number
             description: >
@@ -33,11 +42,11 @@ models:
               Current status for the promo: active | inactive.
             tests:
               - not_null
-          - name: _fivetran_deleted
+          - name: is_deleted
             data_type: boolean
             description: >
               The date in which the data was deleted from the source DB.
-          - name: _fivetran_synced
+          - name: date_loaded
             data_type: date
             description: >
               The date in which this data was last synced.
