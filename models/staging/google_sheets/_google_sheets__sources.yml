@@ -24,6 +24,19 @@ sources:
         columns:
           - name: _row
           - name: product_id
+            tests:
+              - not_null
+              - unique
           - name: quantity
+            description: >
+              Expected quantity for a given product to be sold in the current month.
           - name: month
+            description: >
+              The month associated to the current budget.
+            tests:
+              - not_null
           - name: _fivetran_synced
+            description: >
+                The date in which this data was last synced.
+            tests:
+              - not_null

@@ -3,7 +3,6 @@ WITH src_ORDERS AS (
         FROM {{ source('sql_server_dbo', 'ORDERS') }}
 ),
 
-
 ORDERS_output AS (
     SELECT
         order_id

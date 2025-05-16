@@ -1,9 +1,3 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_promos AS (
 
     SELECT * 
