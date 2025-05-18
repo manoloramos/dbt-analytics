@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: stg_google_sheets__budget
+    config:
+        # materialized: table
+        contract:
+          enforced: true
+        meta:
+          surrogate_key: true
+    description: "Staging layer model that transforms budget data from Google Sheets."
+    columns:
+      - name: id_budget
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "Budget identifier."
+        tests:
+          - not_null
+      - name: quantity
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "Budgeted quantity per month for the product."
+        tests:
+          - not_null
+      - name: date
+        data_type: date
+        constraints:
+          - type: not_null
+        description: "Date corresponding to the budget. The day reflects the last day of that month."
+        tests:
+          - not_null
+      - name: year
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "Year extracted from the budget date."
+        tests:
+          - not_null
+      - name: month
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "Numeric month extracted from the budget date."
+        tests:
+          - not_null
+      - name: month_name
+        data_type: text
+        constraints:
+          - type: not_null
+        description: "Month name extracted from the budget date."
+        tests:
+          - not_null
+      - name: product_id
+        data_type: text
+        constraints:
+          - type: not_null
+        description: "Unique hashed identifier of the product."
+        tests:
+          - not_null
+      - name: date_loaded
+        data_type: timestamp_tz
+        constraints:
+          - type: not_null
+        description: "Fivetran synchronization field, formatted through the format_fivetran_fields macro."
+        tests:
+          - not_null

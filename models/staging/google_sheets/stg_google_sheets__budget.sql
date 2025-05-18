@@ -5,10 +5,13 @@ WITH src_budget AS (
 
 renamed_casted AS (
     SELECT
-          _row::INT as _row
-        , product_id::VARCHAR  AS product_id
+          _row::INT AS id_budget
         , quantity::INT AS quantity
-        , month::DATE AS month -- Check for necessary transformations
+        , month AS date
+        , YEAR(month) AS year
+        , MONTH(month) AS month
+        , MONTHNAME(month) AS month_name
+        , {{ dbt_utils.generate_surrogate_key(['product_id']) }} AS product_id
         , {{ format_fivetran_fields('_fivetran_synced') }}
     FROM src_budget
 )

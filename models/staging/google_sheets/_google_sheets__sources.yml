@@ -1,7 +1,6 @@
 version: 2
 
 sources:
-
   - name: google_sheets # name of the source 
     schema: google_sheets # this is the schema our raw data lives in
     database: "{{ env_var('DBT_ENVIRONMENTS') }}BRONZE_DB" # this is the name of our database
@@ -18,15 +17,15 @@ sources:
       error_after: {count: 30, period: day}
 
     tables:
-
       - name: BUDGET
         loaded_at_field: _fivetran_synced
         columns:
           - name: _row
+            description: >
+              Row number used as budget identifier.
           - name: product_id
             tests:
               - not_null
-              - unique
           - name: quantity
             description: >
               Expected quantity for a given product to be sold in the current month.

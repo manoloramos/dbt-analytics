@@ -1,13 +1,4 @@
-WITH promo_statuses AS (
-    SELECT
-        status
-    FROM {{ ref('base_sql_server_dbo__promos_statuses') }}
-),
-
-promos_statuses_output AS (
-    SELECT 
-        *
-    FROM promo_statuses
-)
-
-SELECT * FROM promos_statuses_output
+SELECT 
+    {{ dbt_utils.generate_surrogate_key(['status']) }} AS status_id
+    , status::VARCHAR AS status_description
+FROM FROM {{ ref('stg_sql_server_dbo__promos') }}

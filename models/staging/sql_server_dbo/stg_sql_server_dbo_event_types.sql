@@ -5,8 +5,9 @@ WITH src_event_types AS (
 
 event_types_output AS (
     SELECT
-        
-    FROM src_events
+        event_type_id,
+        event_type
+    FROM src_event_types
 )
 
 SELECT * FROM event_types_output
