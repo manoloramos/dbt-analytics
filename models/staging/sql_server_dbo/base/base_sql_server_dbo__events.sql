@@ -1,3 +1,7 @@
+/*
+    Events Base - Initial transformations for the Events source
+*/
+
 SELECT
     {{ dbt_utils.generate_surrogate_key(['event_id']) }} AS event_id
     , page_url::VARCHAR AS page_url

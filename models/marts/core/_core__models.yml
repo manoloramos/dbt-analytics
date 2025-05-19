@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: Dimension table for customers
+    columns:
+      - name: customer_id
+        description: Unique identifier for each customer
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_promos
+    description: Dimension table for products
+    columns:
+      - name: product_id
+        description: Unique identifier for each product
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_addresses
+    description: Dimension table for products
+    columns:
+      - name: product_id
+        description: Unique identifier for each product
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_orders
+    description: Fact table for sales
+    columns:
+      - name: sale_id
+        description: Unique identifier for each sale
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Foreign key reference to the dim_customers table
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: product_id
+        description: Foreign key reference to the dim_products table
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id

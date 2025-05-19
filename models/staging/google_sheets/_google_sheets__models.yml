@@ -46,14 +46,14 @@ models:
         tests:
           - not_null
       - name: month_name
-        data_type: text
+        data_type: varchar
         constraints:
           - type: not_null
         description: "Month name extracted from the budget date."
         tests:
           - not_null
       - name: product_id
-        data_type: text
+        data_type: varchar
         constraints:
           - type: not_null
         description: "Unique hashed identifier of the product."
