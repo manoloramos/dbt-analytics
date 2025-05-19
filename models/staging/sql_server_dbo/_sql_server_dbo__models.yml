@@ -2,8 +2,9 @@ version: 2
 
 # DATA CONTRACTS FOR MODELS
 models:
-  - name: PROMOS
+  - name: stg_sql_server_dbo__promos
     config:
+      # materialized: table
       contract:
         enforced: true
       meta:
@@ -12,30 +13,345 @@ models:
       Contains data describing currently available promotions.
     columns:
           - name: promo_id
-            data_type: text
+            data_type: varchar
             constraints:
               - type: not_null
             description: >
               The main ID for each promo. Contains the promo name.
             tests:
+              - unique
               - not_null
-          - name: discount
+
+          - name: promo_desc
+            data_type: varchar
+            constraints:
+              - type: not_null
+            description: >
+              Description text for each promo.
+            tests:
+              - not_null
+
+          - name: discounted_quantity
+            data_type: number
             description: >
               The discount percentage applied by the promo.
             tests:
               - not_null
-              - positive_values
+
           - name: status
+            data_type: varchar
             description: >
               Current status for the promo: active | inactive.
             tests:
               - not_null
-          - name: _fivetran_deleted
+
+          - name: is_deleted
+            data_type: boolean
             description: >
               The date in which the data was deleted from the source DB.
-          - name: _fivetran_synced
+              
+          - name: date_loaded
+            data_type: timestamp_tz
             description: >
               The date in which this data was last synced.
             tests:
               - not_null
    
+  - name: stg_sql_server_dbo__users
+    config:
+      # materialized: table
+      contract:
+        enforced: true
+      meta:
+        surrogate_key: true
+    description: >
+      Contains data describing user data.
+    columns:
+          - name: user_id
+            data_type: varchar
+            constraints:
+              - type: not_null
+            tests:
+              - unique
+              - not_null
+          - name: first_name
+            data_type: varchar
+            tests:
+              - not_null
+          - name: last_name
+            data_type: varchar
+            tests:
+              - not_null
+          - name: address_id
+            data_type: varchar
+            tests:
+              - not_null
+          - name: phone_number
+            data_type: varchar
+            tests:
+              - not_null
+          - name: email
+            data_type: varchar
+            tests:
+              - not_null
+          - name: created_at
+            data_type: date
+            tests:
+              - not_null
+          - name: updated_at
+            data_type: date
+            tests:
+              - not_null
+          - name: is_deleted
+            data_type: boolean
+          - name: date_loaded
+            data_type: timestamp_tz
+            tests:
+              - not_null
+
+  - name: stg_sql_server_dbo__addresses
+    description: ""
+    columns:
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: zipcode
+        data_type: number
+        description: ""
+
+      - name: country
+        data_type: varchar
+        description: ""
+
+      - name: address
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: is_deleted
+        data_type: boolean
+        description: ""
+
+      - name: date_loaded
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_sql_server_dbo__events_orders
+    description: ""
+    columns:
+      - name: event_id
+        data_type: varchar
+        description: ""
+
+      - name: event_type_id
+        data_type: varchar
+        description: ""
+
+      - name: order_id
+        data_type: varchar
+        description: ""
+
+  - name: stg_sql_server_dbo__events_products
+    description: ""
+    columns:
+      - name: event_id
+        data_type: varchar
+        description: ""
+
+      - name: event_type_id
+        data_type: varchar
+        description: ""
+
+      - name: product_id
+        data_type: varchar
+        description: ""
+
+  - name: stg_sql_server_dbo__events
+    description: ""
+    columns:
+      - name: event_id
+        data_type: varchar
+        description: ""
+
+      - name: event_type_id
+        data_type: varchar
+        description: ""
+
+      - name: event_type
+        data_type: varchar
+        description: ""
+
+      - name: page_url
+        data_type: varchar
+        description: ""
+
+      - name: user_id
+        data_type: varchar
+        description: ""
+
+      - name: session_id
+        data_type: varchar
+        description: ""
+
+      - name: created_at
+        data_type: date
+        description: ""
+
+      - name: created_at_timestamp
+        data_type: timestamp_tz
+        description: ""
+
+      - name: is_deleted
+        data_type: boolean
+        description: ""
+
+      - name: date_loaded
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_sql_server_dbo__event_types
+    description: ""
+    columns:
+      - name: event_type_id
+        data_type: varchar
+        description: ""
+
+      - name: event_type
+        data_type: varchar
+        description: ""
+
+  - name: stg_sql_server_dbo__order_items
+    description: ""
+    columns:
+      - name: order_id
+        data_type: varchar
+        description: ""
+
+      - name: product_id
+        data_type: varchar
+        description: ""
+
+      - name: quantity
+        data_type: number
+        description: ""
+
+      - name: is_deleted
+        data_type: boolean
+        description: ""
+
+      - name: date_loaded
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_sql_server_dbo__orders
+    description: ""
+    columns:
+      - name: order_id
+        data_type: varchar
+        description: ""
+
+      - name: tracking_id
+        data_type: varchar
+        description: ""
+
+      - name: status
+        data_type: varchar
+        description: ""
+
+      - name: order_cost
+        data_type: number
+        description: ""
+
+      - name: shipping_service
+        data_type: varchar
+        description: ""
+
+      - name: shipping_cost
+        data_type: number
+        description: ""
+
+      - name: order_total
+        data_type: number
+        description: ""
+
+      - name: created_at
+        data_type: date
+        description: ""
+
+      - name: created_at_timestamp
+        data_type: timestamp_tz
+        description: ""
+
+      - name: estimated_delivery_at
+        data_type: date
+        description: ""
+
+      - name: estimated_delivery_at_timestamp
+        data_type: timestamp_tz
+        description: ""
+
+      - name: delivered_at
+        data_type: date
+        description: ""
+
+      - name: delivered_at_timestamp
+        data_type: date
+        description: ""
+
+      - name: promo_id
+        data_type: varchar
+        description: ""
+
+      - name: user_id
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: is_deleted
+        data_type: boolean
+        description: ""
+
+      - name: date_loaded
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_sql_server_dbo__products
+    description: ""
+    columns:
+      - name: product_id
+        data_type: varchar
+        description: ""
+
+      - name: price
+        data_type: number
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: inventory
+        data_type: number
+        description: ""
+
+      - name: is_deleted
+        data_type: boolean
+        description: ""
+
+      - name: date_loaded
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_sql_server_dbo_event_dates
+    description: ""
+    columns:
+      - name: date_id
+        data_type: varchar
+        description: ""

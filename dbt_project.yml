@@ -19,7 +19,7 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-# Environment variables
+# Project variables
 vars:
   project_timezone: "UTC"
 

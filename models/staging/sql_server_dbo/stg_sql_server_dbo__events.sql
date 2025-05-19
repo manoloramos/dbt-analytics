@@ -1,28 +1,12 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
-WITH src_EVENTS AS (
-    SELECT * 
-        FROM {{ source('sql_server_dbo', 'EVENTS') }}
-    ),
-
-
-EVENTS_output AS (
-    SELECT
-        event_id
-        , page_url
-        , event_type
-        , user_id
-        , product_id
-        , session_id
-        , created_at
-        , order_id
-        , _fivetran_synced AS date_loaded
-        , _fivetran_deleted AS date_deleted
-    FROM src_EVENTS
-    )
-
-SELECT * FROM EVENTS_output
+SELECT
+    event_id
+    , event_type_id
+    , event_type
+    , page_url
+    , user_id
+    , session_id
+    , created_at::DATE AS created_at
+    , created_at AS created_at_timestamp
+    , is_deleted
+    , date_loaded
+FROM {{ ref('base_sql_server_dbo__events') }}

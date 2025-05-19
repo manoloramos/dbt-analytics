@@ -1,24 +1,17 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
-WITH src_ADDRESSES AS (
+WITH src_addresses AS (
     SELECT * 
-        FROM {{ source('sql_server_dbo', 'ADDRESSES') }}
-    ),
+    FROM {{ source('sql_server_dbo', 'ADDRESSES') }}
+),
 
-ADDRESSES_output AS (
+addresses_output AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id -- Cast?
+        {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id
         , zipcode::INT AS zipcode
         , country::VARCHAR AS country
         , address::VARCHAR AS address
         , state::VARCHAR AS state
-        , _fivetran_synced AS date_loaded -- Cast?
-        , _fivetran_deleted AS date_deleted -- Cast?
-    FROM src_ADDRESSES
-    )
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
+    FROM src_addresses
+)
 
-SELECT * FROM ADDRESSES_output
+SELECT * FROM addresses_output

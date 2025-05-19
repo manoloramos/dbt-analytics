@@ -1,9 +1,3 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_promos AS (
 
     SELECT * 
@@ -19,17 +13,15 @@ WITH src_promos AS (
         , 'inactive' AS status
         , null AS _fivetran_deleted
         , CONVERT_TIMEZONE('UTC', CURRENT_TIMESTAMP) AS _fivetran_synced
-    
 ),
 
 promos_output AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id -- Generate a surrogate key (hash) to better identify PROMOS
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id
         , promo_id::VARCHAR AS promo_desc
-        , discount::FLOAT AS discounted_quantity
+        , discount::NUMERIC(30,2) AS discounted_quantity
         , status::VARCHAR AS status
-        , _fivetran_deleted::BOOLEAN AS is_deleted
-        , CONVERT_TIMEZONE({{ var('project_timezone')}}, _fivetran_synced)::TIMESTAMP AS date_loaded
+        , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
     FROM src_promos
 )
 
