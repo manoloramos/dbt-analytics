@@ -5,9 +5,9 @@ WITH src_ORDER_ITEMS AS (
 
 ORDER_ITEMS_output AS (
     SELECT
-        order_id
-        , product_id
-        , quantity
+        {{ dbt_utils.generate_surrogate_key(['order_id']) }} AS order_id
+        , {{ dbt_utils.generate_surrogate_key(['product_id']) }} AS product_id
+        , quantity::NUMERIC AS quantity
         , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
 
     FROM src_ORDER_ITEMS

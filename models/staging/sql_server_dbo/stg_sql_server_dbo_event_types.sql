@@ -3,6 +3,7 @@ WITH src_event_types AS (
         FROM {{ ref('base_sql_server_dbo__events') }}
 ),
 
+-- Check for unique event types
 event_types_output AS (
     SELECT
         event_type_id,
