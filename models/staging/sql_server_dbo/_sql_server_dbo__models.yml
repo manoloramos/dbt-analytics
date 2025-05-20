@@ -74,36 +74,49 @@ models:
             tests:
               - unique
               - not_null
+
           - name: first_name
             data_type: varchar
             tests:
               - not_null
+
           - name: last_name
             data_type: varchar
             tests:
               - not_null
+
           - name: address_id
             data_type: varchar
             tests:
               - not_null
+
           - name: phone_number
             data_type: varchar
             tests:
               - not_null
+              - validate_phone:
+                  column_name: phone_number
+              
           - name: email
             data_type: varchar
             tests:
               - not_null
+              - validate_email:
+                  column_name: email
+                  
           - name: created_at
             data_type: date
             tests:
               - not_null
+
           - name: updated_at
             data_type: date
             tests:
               - not_null
+
           - name: is_deleted
             data_type: boolean
+            
           - name: date_loaded
             data_type: timestamp_tz
             tests:
@@ -235,7 +248,7 @@ models:
         data_type: varchar
         description: ""
 
-      - name: quantity
+      - name: product_quantity
         data_type: number
         description: ""
 

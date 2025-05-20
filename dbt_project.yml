@@ -53,3 +53,7 @@ models:
       +database: "{{ env_var('DBT_ENVIRONMENTS') }}GOLD_DB"
       core:
         +schema: core
+      events:
+        +schema: events
+      sales:
+        +schema: sales

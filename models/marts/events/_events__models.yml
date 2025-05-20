@@ -1,11 +1,12 @@
 version: 2
 
 models:
-  - name: sales
-    description: Fact table for sales
+  - name: fct_events
+    description: >
+      Contains data describing events that took place in the store.
     columns:
-      - name: sale_id
-        description: Unique identifier for each sale
+      - name: event_id
+        description: Unique identifier for each event
         tests:
           - unique
           - not_null

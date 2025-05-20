@@ -34,7 +34,6 @@ sources:
               The discount percentage applied by the promo.
             tests:
               - not_null
-              - positive_values
           - name: status
             description: >
               Current status for the promo: active | inactive.

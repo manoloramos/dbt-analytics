@@ -7,8 +7,8 @@ mart_promos AS (
     SELECT
         promo_id
         , promo_desc
-        , discount
         , status
+        , discounted_quantity
     FROM stg_promos
 )
 

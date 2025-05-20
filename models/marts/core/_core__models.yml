@@ -1,52 +1,177 @@
 version: 2
 
 models:
-  - name: dim_users
-    description: Dimension table for customers
+  - name: fct_orders
+    description: Fact table for orders
     columns:
-      - name: customer_id
-        description: Unique identifier for each customer
+    - name: order_id
+      description: Unique identifier for the order
+      tests:
+        - unique
+        - not_null
+
+    - name: user_id
+      description: Identifier for the user who placed the order
+      tests:
+        - relationships:
+            to: ref('dim_users')
+            field: user_id
+
+    - name: address_id
+      description: Identifier for the address associated with the order
+      tests:
+        - relationships:
+            to: ref('dim_addresses')
+            field: address_id
+
+
+    - name: actual_status
+      description: The current status of the order
+
+    - name: order_date
+      description: The date the order was placed
+
+    - name: order_timestamp
+      description: The timestamp when the order was placed
+
+    - name: estimated_delivery_date
+      description: The estimated delivery date for the order
+
+    - name: estimated_delivery_timestamp
+      description: The estimated delivery timestamp for the order
+
+    - name: delivered_date
+      description: The date the order was delivered
+
+    - name: delivered_timestamp
+      description: The timestamp when the order was delivered
+
+    - name: shipping_service
+      description: The shipping service used for the order
+
+    - name: tracking_id
+      description: The tracking ID for the order
+
+    - name: product_id
+      description: The identifier for the product in the order
+
+    - name: line_quantity
+      description: The quantity of the product ordered
+
+    - name: line_unit_price
+      description: The unit price of the product
+
+    - name: line_extended_price
+      description: The extended price of the line item
+
+    - name: order_cost
+      description: The total cost of the order
+
+    - name: shipping_cost
+      description: The shipping cost for the order
+
+    - name: order_total
+      description: The total cost of the order including shipping
+      
+    - name: order_deleted
+      description: Indicates if the order has been deleted
+
+    - name: order_line_delete
+      description: Indicates if the order line has been deleted
+
+  - name: dim_users
+    description: Dimension table for users
+    columns:
+      - name: user_id
+        description: Unique identifier for each user
         tests:
           - unique
+          - not_null
+
+      - name: first_name
+        description: The user's first name
+        tests:
+          - not_null
+
+      - name: last_name
+        description: The user's last name
+        tests:
+          - not_null
+
+      - name: address_id
+        description: Unique identifier for the address associated to the current customer
+        tests:
+          - not_null
+
+      - name: phone_number
+        description: Phone number associated to the current customer
+        tests:
+          - not_null
+
+      - name: email
+        description: Email associated to the current customer
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: Last date this user was updated
+        tests:
+          - not_null
+
+      - name: created_at
+        description: Date for this user's creation
+        tests:
           - not_null
 
   - name: dim_promos
-    description: Dimension table for products
+    description: Dimension table for promos
     columns:
-      - name: product_id
-        description: Unique identifier for each product
+      - name: promo_id
+        description: Unique identifier for each promo
         tests:
           - unique
+          - not_null
+
+      - name: promo_desc
+        description: Promo description
+        tests:
+          - not_null
+
+      - name: status
+        description: Current status for a promo
+        tests:
+          - not_null
+
+      - name: discount
+        description: Applied discount associated with that promo
+        tests:
           - not_null
 
   - name: dim_addresses
-    description: Dimension table for products
+    description: Dimension table for addresses
     columns:
-      - name: product_id
-        description: Unique identifier for each product
+      - name: address_id
+        description: Unique identifier for each address
         tests:
           - unique
           - not_null
 
-  - name: fact_orders
-    description: Fact table for sales
-    columns:
-      - name: sale_id
-        description: Unique identifier for each sale
-        tests:
-          - unique
-          - not_null
-      - name: customer_id
-        description: Foreign key reference to the dim_customers table
+      - name: zipcode
+        description: Zipcode associated to the address
         tests:
           - not_null
-          - relationships:
-              to: ref('dim_customers')
-              field: customer_id
-      - name: product_id
-        description: Foreign key reference to the dim_products table
+
+      - name: country
+        description: Country associated to the address
         tests:
           - not_null
-          - relationships:
-              to: ref('dim_products')
-              field: product_id
+
+      - name: address
+        description: Complete address info
+        tests:
+          - not_null
+
+      - name: state
+        description: State associated to the address
+        tests:
+          - not_null

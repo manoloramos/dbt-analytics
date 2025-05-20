@@ -9,10 +9,8 @@ mart_users AS (
         , first_name
         , last_name
         , address_id
-        , phone_number::VARCHAR AS phone_number -- Validate
-        -- incorrect phone field
-        , email::VARCHAR AS email -- Validate
-        -- incorrect email field
+        , phone_number
+        , email
         , created_at
         , updated_at
     FROM stg_users

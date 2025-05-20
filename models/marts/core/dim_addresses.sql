@@ -6,9 +6,9 @@ WITH stg_addresses AS (
 mart_addresses AS (
     SELECT
         address_id
+        , address
         , zipcode
         , country
-        , address
         , state
     FROM stg_addresses
 )
