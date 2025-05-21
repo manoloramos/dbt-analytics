@@ -23,7 +23,6 @@ models:
             to: ref('dim_addresses')
             field: address_id
 
-
     - name: actual_status
       description: The current status of the order
 
@@ -172,5 +171,24 @@ models:
 
       - name: state
         description: State associated to the address
+        tests:
+          - not_null
+  
+  - name: dim_products
+    description: Dimension table for products
+    columns:
+      - name: product_id
+        description: Unique identifier for each product
+        tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        description: The product name
+        tests:
+          - not_null
+
+      - name: product_in_inventory
+        description: The number of units for this product that is avaiable for sale.
         tests:
           - not_null

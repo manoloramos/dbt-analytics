@@ -5,11 +5,14 @@
   )
 }}
 
+-- Day has to be the dayname
+-- Day of week has to start on 1 and end on 7
+
 WITH date_spine AS (
   {{ dbt_utils.date_spine(
     datepart="day",
-    start_date="cast('2018-01-01' as date)",
-    end_date="DATEADD(year, 3, CURRENT_DATE)"
+    start_date="cast('2021-02-01' as date)",
+    end_date="DATEADD(year, 1, CURRENT_DATE)"
   ) }}
 ),
 
@@ -24,8 +27,8 @@ filtered_spine AS (
 SELECT
   date_day AS date,
   YEAR(date_day) AS year,
-  EXTRACT(MONTH FROM date_day) AS month,
-  EXTRACT(DAY FROM date_day) AS day,
+  MONTH(date_day) AS month,
+  DAY(date_day) AS day,
   TO_CHAR(date_day, 'Day') AS day_name,
   EXTRACT(DAYOFWEEK FROM date_day) AS day_of_week,
   EXTRACT(DAYOFYEAR FROM date_day) AS day_of_year,

@@ -13,11 +13,11 @@ ORDERS_output AS (
         , shipping_cost::NUMERIC(30,2) AS shipping_cost
         , order_total::NUMERIC(30,2) AS order_total
         , created_at::DATE AS created_at
-        , {{ format_dates('created_at', var('project_timezone')) }} AS created_at_timestamp
+        , {{ format_dates('created_at', var('project_timezone'))}}::TIMESTAMP AS created_at_timestamp
         , estimated_delivery_at::DATE AS estimated_delivery_at
-        , {{ format_dates('estimated_delivery_at', var('project_timezone')) }} AS estimated_delivery_at_timestamp -- Check for nulls
+        , {{ format_dates('estimated_delivery_at', var('project_timezone'))}}::TIMESTAMP AS estimated_delivery_at_timestamp -- Check for nulls
         , delivered_at::DATE AS delivered_at
-        , {{ format_dates('delivered_at', var('project_timezone')) }}::DATE AS delivered_at_timestamp
+        , {{ format_dates('delivered_at', var('project_timezone'))}}::TIMESTAMP AS delivered_at_timestamp -- Check for nulls
         , {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id
         , {{ dbt_utils.generate_surrogate_key(['user_id']) }} AS user_id
         , {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id

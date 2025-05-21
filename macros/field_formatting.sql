@@ -19,15 +19,10 @@ hah       '(  (..-'
     Usage: {{ format_dates('created_at', var('timezone')) }} AS 'desired_camp'
 */
 
-{% macro format_dates(date_column, timezone = None) %}
-    TO_CHAR(
-    {% if timezone is not none %}
-        CONVERT_TIMEZONE('{{ timezone }}', {{ date_column }})
-    {% else %}
-        {{ date_column }}
-    {% endif %}
-    , 'YYYY-MM-DD')
+{% macro format_dates(date_column, timezone) %}
+    CONVERT_TIMEZONE('{{ timezone }}', {{ date_column }})
 {% endmacro %}
+
 
 /*
     Format fivetran fields. Can accepet 1 or 2 arguments.
