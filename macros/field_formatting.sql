@@ -19,12 +19,12 @@ hah       '(  (..-'
     Usage: {{ format_dates('created_at', var('timezone')) }} AS 'desired_camp'
 */
 
-{% macro format_dates(date, timezone = None) %}
+{% macro format_dates(date_column, timezone = None) %}
     TO_CHAR(
     {% if timezone is not none %}
-        CONVERT_TIMEZONE('{{ timezone }}', {{ date }})
+        CONVERT_TIMEZONE('{{ timezone }}', {{ date_column }})
     {% else %}
-        date
+        {{ date_column }}
     {% endif %}
     , 'YYYY-MM-DD')
 {% endmacro %}

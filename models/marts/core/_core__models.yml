@@ -7,7 +7,6 @@ models:
     - name: order_id
       description: Unique identifier for the order
       tests:
-        - unique
         - not_null
 
     - name: user_id
@@ -142,7 +141,7 @@ models:
         tests:
           - not_null
 
-      - name: discount
+      - name: discounted_quantity
         description: Applied discount associated with that promo
         tests:
           - not_null

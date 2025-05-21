@@ -11,7 +11,8 @@ SELECT
     , {{ dbt_utils.generate_surrogate_key(['product_id']) }} AS product_id
     , {{ dbt_utils.generate_surrogate_key(['order_id']) }} AS order_id
     , {{ dbt_utils.generate_surrogate_key(['session_id']) }} AS session_id
-    , {{ format_dates('created_at', var('project_timezone')) }} AS created_at
+    , {{ format_dates('created_at') }} AS created_at
+    , {{ format_dates('created_at', var('project_timezone')) }} AS created_at_timestamp
     , {{ format_fivetran_fields('_fivetran_synced', '_fivetran_deleted') }}
 FROM {{ source('sql_server_dbo', 'EVENTS') }}
 ORDER BY created_at
