@@ -9,7 +9,7 @@ ORDERS_output AS (
         , {{ dbt_utils.generate_surrogate_key(['tracking_id']) }} AS tracking_id
         , status::VARCHAR AS status
         , order_cost::NUMERIC(30,2) AS order_cost
-        , shipping_service::VARCHAR AS shipping_service
+        , COALESCE(NULLIF(shipping_service, ''), 'unassigned')::VARCHAR AS shipping_service
         , shipping_cost::NUMERIC(30,2) AS shipping_cost
         , order_total::NUMERIC(30,2) AS order_total
         , created_at::DATE AS created_at

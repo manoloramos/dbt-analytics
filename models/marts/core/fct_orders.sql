@@ -2,13 +2,13 @@ WITH stg_order_items AS (
     SELECT
         *
     FROM {{ ref('stg_sql_server_dbo__order_items') }}
-),
+    ),
 
 stg_orders AS (
     SELECT
         *
     FROM {{ ref('stg_sql_server_dbo__orders') }}
-),
+    ),
 
 stg_products AS(
     SELECT
@@ -18,32 +18,35 @@ stg_products AS(
 
 fct_orders AS (
     SELECT
-        oi.order_id
-        , o.user_id
-        , o.address_id
-        , o.status AS actual_status
-        , o.created_at AS order_date
-        , o.created_at_timestamp AS order_timestamp
-        , o.estimated_delivery_at AS estimated_delivery_date
-        , o.estimated_delivery_at_timestamp AS estimated_delivery_timestamp
-        , o.delivered_at AS delivered_date
-        , o.delivered_at_timestamp AS delivered_timestamp
-        , o.shipping_service
-        , o.tracking_id
-        , oi.product_id -- Order items ticket start
-        , oi.product_quantity AS line_quantity
-        , p.product_price AS line_unit_price
-        , {{ calculate_extended_cost('oi.product_quantity','p.product_price') }} AS line_extended_price
-        , o.order_cost -- Transactional total
-        , o.shipping_cost
-        , o.order_total -- Transactional total + shipping
-        , o.is_deleted AS order_deleted
-        , oi.is_deleted AS order_line_delete
+        oi.order_id,
+        o.user_id,
+        o.address_id,
+        o.status AS actual_status,
+        o.created_at_date AS order_date,
+        o.created_at_timestamp AS order_timestamp,
+        o.estimated_delivery_at AS estimated_delivery_date,
+        o.estimated_delivery_at_timestamp AS estimated_delivery_timestamp,
+        o.delivered_at AS delivered_date,
+        o.delivered_at_timestamp AS delivered_timestamp,
+        o.shipping_service,
+        o.tracking_id,
+        oi.product_id,
+        oi.product_quantity AS line_quantity,
+        p.product_price AS line_unit_price,
+        {{ calculate_extended_cost('oi.product_quantity','p.product_price') }} AS line_extended_price,
+        o.order_cost,
+        o.shipping_cost,
+        o.order_cost + o.shipping_cost AS order_total,
+        o.order_total AS source_order_total,
+        o.is_deleted AS order_deleted,
+        oi.is_deleted AS order_line_delete
+
     FROM stg_order_items AS oi
     INNER JOIN stg_orders AS o
         ON oi.order_id = o.order_id
     INNER JOIN stg_products AS p
         ON oi.product_id = p.product_id
+    ORDER BY order_id, order_timestamp
 )
 
 SELECT * FROM fct_orders
