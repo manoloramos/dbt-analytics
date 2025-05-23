@@ -26,6 +26,7 @@ SELECT
   , YEAR(date_day) AS year
   , MONTH(date_day) AS month
   , {{ dbt_date.month_name('date_day', short=False) }} AS month_name
+  , DAY(date_day) AS day
   , CASE EXTRACT(DAYOFWEEK FROM date_day)
         WHEN 0 THEN 'Sunday'
         WHEN 1 THEN 'Monday'
