@@ -5,9 +5,6 @@
   )
 }}
 
--- Day has to be the dayname
--- Day of week has to start on 1 and end on 7
-
 WITH date_spine AS (
   {{ dbt_utils.date_spine(
     datepart="day",

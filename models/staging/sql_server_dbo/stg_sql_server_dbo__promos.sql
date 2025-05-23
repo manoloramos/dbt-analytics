@@ -5,8 +5,6 @@ WITH src_promos AS (
 
     UNION ALL
 
-    -- Specify source origin columns, not aliases defined in SLV ouput
-    -- Insert a new no_promo row
     SELECT 
         'no_promo' AS promo_id
         , 0 AS discount
